@@ -135,11 +135,9 @@ public class Panel_1 extends JPanel {
 //<------------------Iniciando Botones----------------->//
 
     /*
-    
     Iniciando el teclado de operadores
     xS = xA + ancho + espacio
     yS = yA + alto + espacio
-    
      */
     public void teclado_Operadores(JButton jbtOperadores[]) {
         //Size
