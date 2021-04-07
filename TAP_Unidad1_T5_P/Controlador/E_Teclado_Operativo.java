@@ -10,11 +10,31 @@ import Modelo.Operaciones;
 
 public class E_Teclado_Operativo implements ActionListener {
 
+    private static Queue<String> QueueOperation;
+
+    public static void Queue() {
+        QueueOperation = new ArrayDeque<>();
+    }
+
+    /*
+    posicion de cada operador en el arreglo
+    [0]  +
+    [1]  -
+    [2]  *
+    [3]  /
+    [4]  √
+    [5]  n^2
+    [6]  n^n
+    [7]  !
+    [8]  sen
+    [9]  cos
+    [10] tan
+    [11] <-
+    [12] =
+     */
     private Panel_1 P;
     private JButton T[];
     private boolean Igual;
-    private static Queue<String> QueueOperation;
-    private boolean ModBlack = false;
     private Operaciones operacion;
 
     public E_Teclado_Operativo(Panel_1 P, JButton T[]) {
@@ -27,7 +47,7 @@ public class E_Teclado_Operativo implements ActionListener {
         iniciarTeclado();
     }
 
-    public void iniciarTeclado() {
+    private void iniciarTeclado() {
         P.teclado_Operadores(T);
         T[0].addActionListener(this);
         T[1].addActionListener(this);
@@ -48,14 +68,19 @@ public class E_Teclado_Operativo implements ActionListener {
     @SuppressWarnings("UnusedAssignment")
     public void actionPerformed(ActionEvent e) {
         String N = P.jtfNumero.getText();
-
+        String f = "";
+        if (Igual) {
+            Igual = false;
+            P.jtaResultado.setText("");
+        }
         if (e.getSource() == T[0]) {//Metodo de suma
             if (N.isEmpty() && P.jtaResultado.getText().isEmpty()) {
                 return;
             }
             QueueOperation.add(N);
             QueueOperation.add("+");
-            P.jtaResultado.setText(QueueOperation.toString());
+            f += P.jtaResultado.getText() + N + " + ";
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[1]) {//Metodo de resta
             if (N.isEmpty() && P.jtaResultado.getText().isEmpty()) {
@@ -63,7 +88,8 @@ public class E_Teclado_Operativo implements ActionListener {
             }
             QueueOperation.add(N);
             QueueOperation.add("-");
-            P.jtaResultado.setText(QueueOperation.toString());
+            f += P.jtaResultado.getText() + N + " - ";
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[2]) {//Metodo de multiplicacion
             if (N.isEmpty() && P.jtaResultado.getText().isEmpty()) {
@@ -71,7 +97,8 @@ public class E_Teclado_Operativo implements ActionListener {
             }
             QueueOperation.add(N);
             QueueOperation.add("*");
-            P.jtaResultado.setText(QueueOperation.toString());
+            f += P.jtaResultado.getText() + N + " * ";
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[3]) {//Metodo de divicion
             if (N.isEmpty() && P.jtaResultado.getText().isEmpty()) {
@@ -79,7 +106,8 @@ public class E_Teclado_Operativo implements ActionListener {
             }
             QueueOperation.add(N);
             QueueOperation.add("/");
-            P.jtaResultado.setText(QueueOperation.toString());
+            f += P.jtaResultado.getText() + N + " / ";
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[4]) { //Raiz cuadrada
             if (N.isEmpty() && P.jtaResultado.getText().isEmpty()) {
@@ -87,7 +115,8 @@ public class E_Teclado_Operativo implements ActionListener {
             }
             QueueOperation.add(N);
             QueueOperation.add("√");
-            P.jtaResultado.setText(QueueOperation.toString());
+            f += P.jtaResultado.getText() + " √" + N;
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[5]) {//potencia al cuadrado
             if (N.isEmpty() && P.jtaResultado.getText().isEmpty()) {
@@ -96,7 +125,8 @@ public class E_Teclado_Operativo implements ActionListener {
             QueueOperation.add(N);
             QueueOperation.add("^");
             QueueOperation.add("2");
-            P.jtaResultado.setText(QueueOperation.toString());
+            f += P.jtaResultado.getText() + N + " ^ 2";
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[6]) {//potencia a la n
             if (N.isEmpty() && P.jtaResultado.getText().isEmpty()) {
@@ -104,20 +134,22 @@ public class E_Teclado_Operativo implements ActionListener {
             }
             QueueOperation.add(N);
             QueueOperation.add("^");
-            P.jtaResultado.setText(QueueOperation.toString());
+            f += P.jtaResultado.getText() + N + " ^ ";
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[7]) {//Factorial
             if (N.isEmpty() && P.jtaResultado.getText().isEmpty()) {
                 return;
             }
-            QueueOperation.add(N);
             QueueOperation.add("!");
-            P.jtaResultado.setText(QueueOperation.toString());
+            QueueOperation.add(N);
+            f += P.jtaResultado.getText() + N + "! ";
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[8]) {//seno
-            P.jtfNumero.setText("sen");
             QueueOperation.add("sen");
-            P.jtaResultado.setText(QueueOperation.toString());
+            f += P.jtaResultado.getText() + "sen";
+            P.jtaResultado.setText(f);
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[9]) {//coseno
             P.jtfNumero.setText("cos");
@@ -126,7 +158,7 @@ public class E_Teclado_Operativo implements ActionListener {
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[10]) {//tangente
             P.jtfNumero.setText("tan");
-            QueueOperation.add("cos");
+            QueueOperation.add("tan");
             P.jtaResultado.setText(QueueOperation.toString());
             P.jtfNumero.setText("");
         } else if (e.getSource() == T[11]) {
@@ -140,11 +172,13 @@ public class E_Teclado_Operativo implements ActionListener {
             N = aux;
             P.jtfNumero.setText(N);
         } else if (e.getSource() == T[12]) {
+            Igual = true;
             if (!P.jtfNumero.getText().isEmpty()) {
                 QueueOperation.add(P.jtfNumero.getText());
             }
             QueueOperation.add("=");
-            double r = operacion.funcion(QueueOperation);
+            double r = operacion.expresion(QueueOperation);
+            operacion.r = 0;
             P.jtfNumero.setText("");
             P.jtaResultado.setText("" + r);
             while (!QueueOperation.isEmpty()) {
@@ -153,23 +187,4 @@ public class E_Teclado_Operativo implements ActionListener {
         }
     }
 
-    public static void Queue() {
-        QueueOperation = new ArrayDeque<>();
-    }
-
-    /*
-    [0] + 
-    [1] - 
-    [2] * 
-    [3] /
-    [4] √
-    [5] n^2
-    [6] n^n
-    [7] !
-    [8] sen
-    [9] cos
-    [10] tan
-    [11] <-
-    [12] =
-     */
 }
