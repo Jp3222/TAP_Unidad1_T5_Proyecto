@@ -135,10 +135,12 @@ public class Panel_1 extends JPanel {
 //<------------------Iniciando Botones----------------->//
 
     /*
+    
     Iniciando el teclado de operadores
     xS = xA + ancho + espacio
     yS = yA + alto + espacio
-     */
+    
+    */
     public void teclado_Operadores(JButton jbtOperadores[]) {
         //Size
         int btnAncho = 50, btnAlto = 50;
@@ -149,7 +151,7 @@ public class Panel_1 extends JPanel {
         int espY = 20;
         //propiedades
         Border B = new BevelBorder(1, Color.CYAN, Color.BLACK);
-        Font F = new Font("Tw Cen MT", 0, 12);
+        Font F = new Font("Tw Cen MT", 1, 14);
         Color CF = new Color(0, 255, 151);
         Color CB = new Color(7, 22, 133);
         //Botones
