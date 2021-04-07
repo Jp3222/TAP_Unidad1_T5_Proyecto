@@ -33,7 +33,6 @@ public class E_Teclado_Numerico implements ActionListener {
         T[10].addActionListener(this);
         T[11].addActionListener(this);
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String N = P.jtfNumero.getText();
